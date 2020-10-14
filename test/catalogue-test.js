@@ -129,4 +129,5 @@ describe("search", () => {
     expect(() => cat.search({aaa:'111'})).to.throw("Bad Search");
   });
 });
+
 });
