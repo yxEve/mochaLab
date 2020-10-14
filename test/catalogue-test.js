@@ -95,4 +95,38 @@ describe("checkReorder", () => {
       expect(rejectedProduct).to.be.undefined; 
     });
 });
+
+describe("search", () => {
+  it("should return the products whose price is less than (or equal to) the specified value", () => {
+    cat = new Catalogue("Test Catalogue");
+    cat.addProduct(new Product("A128", "shoes", 100, 10, 10.0));
+    cat.addProduct(new Product("A129", "shoulder bag", 100, 30,30.0));
+    cat.addProduct(new Product("A130", "jacket", 100, 30))
+    const result = cat.search({price:25.00});
+    expect(result).to.equal(1);
+    let search = cat.findProductById("A128");
+    expect(search).to.not.be.undefined; 
+  });
+
+  it("should return the products with the keyword in their name", () => {
+    cat = new Catalogue("Test Catalogue");
+    cat.addProduct(new Product("A128", "shoes", 100, 10, 10.0));
+    cat.addProduct(new Product("A129", "shoulder bag", 100, 30,30.0));
+    cat.addProduct(new Product("A130", "jacket", 100, 30))
+    const result = cat.search({keyword:'sho'});
+    expect(result).to.equal(2);
+    let search = cat.findProductById("A128");
+    expect(search).to.not.be.undefined;
+    searchProduct = cat.findProductById("A129");
+    expect(search).to.not.be.undefined; 
+  });
+
+  it("should throw an exception", () => {
+    cat = new Catalogue("Test Catalogue");
+    cat.addProduct(new Product("A128", "shoes", 100, 10, 10.0));
+    cat.addProduct(new Product("A129", "shoulder bag", 100, 30,30.0));
+    cat.addProduct(new Product("A130", "jacket", 100, 30))
+    expect(() => cat.search({aaa:'111'})).to.throw("Bad Search");
+  });
+});
 });

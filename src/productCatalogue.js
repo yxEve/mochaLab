@@ -51,5 +51,21 @@ class Catalogue {
     return result;
   }
 
-}
+  search(criteria){
+    if(Object.keys(criteria) == 'price'){
+      const result = this.products
+      .filter((p) => p.price <= Object.values(criteria)).map((p) => p.id);
+      return result.length;
+    }
+    else if(Object.keys(criteria) == 'keyword'){
+      const result = this.products
+      .filter((p) => p.name.search(Object.values(criteria)) !== -1).map((p) => p.id);
+      return result.length;
+    }   
+    else if(Object.keys(criteria) !== 'price' || 'keyword'){
+      throw new Error("Bad Search");
+      }
+  }
+
+};
 module.exports = Catalogue;
