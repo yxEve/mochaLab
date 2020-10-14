@@ -16,6 +16,14 @@ class Catalogue {
     }
     return false;
   }
+
+  batchAddProducts(batch) {
+    batch.products.forEach( p => 
+       this.addProduct(p)
+    )
+    return batch.products.length
+  }
+  
   removeProductById(id) {
     const removedProduct = this.findProductById(id);
     if (removedProduct) {
